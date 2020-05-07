@@ -13,12 +13,12 @@ import com.lmz.qualifier.service.impl.PrintTest2;
  */
 @Configuration
 public class SpringBean {
-	@Bean(value = "1")
+	@Bean(value = "bean1")
 	public InterfacePrint test1() {
 		return new PrintTest1();
 	}
 
-	@Bean(value = "2")
+	@Bean(value = "bean2")
 	public InterfacePrint test2() {
 		return new PrintTest2();
 	}

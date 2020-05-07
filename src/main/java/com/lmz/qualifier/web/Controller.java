@@ -9,13 +9,13 @@ import com.lmz.qualifier.service.InterfacePrint;
 
 /**
  * @author ZLM
- *
+ *当注入的service有多个实现类的时候，可以有@Qualifier注解指定具体实现类，value是实现类注册bean的名字
  */
 @RestController
 public class Controller {
 
 	@Autowired
-	@Qualifier(value = "1")
+	@Qualifier(value = "bean1")
 	private InterfacePrint i;
 
 	@RequestMapping("/print")
