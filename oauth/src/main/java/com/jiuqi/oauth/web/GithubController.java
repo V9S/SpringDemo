@@ -1,9 +1,19 @@
 package com.jiuqi.oauth.web;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.security.SecureRandom;
+
+import javax.crypto.Cipher;
+import javax.crypto.SecretKey;
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.DESKeySpec;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.codec.binary.Base64;
 import org.apache.oltu.oauth2.client.OAuthClient;
 import org.apache.oltu.oauth2.client.URLConnectionClient;
 import org.apache.oltu.oauth2.client.request.OAuthBearerClientRequest;
@@ -15,7 +25,12 @@ import org.apache.oltu.oauth2.common.OAuth;
 import org.apache.oltu.oauth2.common.exception.OAuthProblemException;
 import org.apache.oltu.oauth2.common.exception.OAuthSystemException;
 import org.apache.oltu.oauth2.common.message.types.GrantType;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.codehaus.jettison.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,50 +39,69 @@ import org.springframework.web.bind.annotation.RestController;
  * @author ZLM
  * @date 2020/05/26
  */
+@Component
+@CrossOrigin(origins = "*", maxAge = 3600)
+@RequestMapping("/gams2/login")
 @RestController
 public class GithubController {
 
-    @Autowired
-    private HttpServletRequest request;
-    @Autowired
-    private HttpServletResponse response;
-    /**
-     * github基本参数
-     */
-    String baseUri = "https://github.com/login/oauth";
-    String clientSecret = "5f2c67d2c36f491c3aaf5d6fa67fbce5e7c3a67d";
+    @Value("${oauth.base.clientSecret}")
+    private String clientSecret;
+
+    @Value("${oauth.base.clientId}")
+    private String clientId;
+
+    @Value("${oauth.code.responseType}")
+    private String responseType;
+
+    @Value("${oauth.base.redirectUri}")
+    private String redirectUri;
+
+    @Value("${oauth.code.CodeUrl}")
+    private String codeUrl;
+
+    @Value("${oauth.token.TokenUrl}")
+    private String tokenUrl;
+
+    @Value("${oauth.token.grantType}")
+    private String grantType;
+
+    @Value("${oauth.userInfo.UserInfoUrl}")
+    private String userInfoUrl;
+
+    @Value("${oauth.target.targetUrl}")
+    private String targetUrl;
+
+    @Value("${oauth.encryption:true}")
+    private boolean encryption;
+
+    private static String password;
+
+    @Value("${oauth.base.password}")
+    private void setPassword(String password) {
+        GithubController.password = password;
+    }
+
+    private String state = String.valueOf(Math.random());
+
+    private String getCodeUrl = null;
+
+    private final Logger logger = LoggerFactory.getLogger(GithubController.class);
 
     /**
-     * 获取code所需参数
-     */
-    String clientId = "73a227a4b2c76761d91b";
-    String responseType = "code";
-    String redirectUri = "http://127.0.0.1:9999/getGithubAccessToken";
-    String state = String.valueOf(Math.random());
-    /**
-     * 获取code地址
-     */
-    String getCodeUrl = baseUri + "/authorize?" + "client_id=" + clientId + "&redirectUri=" + redirectUri + "&state=";
-    /**
-     * 获取token地址
-     */
-    String accessTokenUrl = baseUri + "/access_token";
-    /**
-     * 获取用户数据的api
-     */
-    String userInfoUrl = "https://api.github.com/user";
-
-    /**
-     * 获取code
+     * 获取Authorization code
      * 
      * @throws IOException
      */
-    @GetMapping("/getGithubCode")
-    private void getCode() throws IOException {
+    @GetMapping("/oauth/getGithubCode")
+    private void getCode(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+        getCodeUrl = codeUrl + "?client_id=" + clientId + "&redirect_uri=" + redirectUri + "&response_type=" + responseType
+            + "&state=" + state;
+        logger.info(getCodeUrl);
         OAuthClientRequest oaRequest = null;
         try {
             oaRequest = OAuthClientRequest.authorizationLocation(getCodeUrl).buildQueryMessage();
-            System.out.println(oaRequest.getLocationUri());
             String redirectUrl = oaRequest.getLocationUri();
             response.sendRedirect(redirectUrl);
         } catch (OAuthSystemException e) {
@@ -77,35 +111,30 @@ public class GithubController {
 
     /**
      * 获取access_token
+     * 
+     * @throws Exception
      */
-    @RequestMapping("/getGithubAccessToken")
-    private void getAccessToken() {
-
-        System.out.println(this.getClass().getName() + "的service方法");
+    @RequestMapping("/oauth/getGithubAccessToken")
+    private void getAccessToken(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         String code = request.getParameter("code");
         String state = request.getParameter("state");
-        System.out.println("获取到的code：" + code);
-        System.out.println("获取到的state：" + state);
+        logger.info("coed:" + code);
+        logger.info("state:" + state);
 
         OAuthClient oAuthClient = new OAuthClient(new URLConnectionClient());
         OAuthClientRequest accessTokenRequest = null;
+        String accessToken = null;
         try {
-            accessTokenRequest =
-                OAuthClientRequest.tokenLocation(accessTokenUrl).setGrantType(GrantType.AUTHORIZATION_CODE)
-                    // redirectUri表示重定向URI。必选项，且必须与上一步骤中的该参数值保持一致。
-                    .setClientId(clientId).setClientSecret(clientSecret).setCode(code).setRedirectURI(redirectUri)
-                    .buildQueryMessage();
+            accessTokenRequest = OAuthClientRequest.tokenLocation(tokenUrl).setGrantType(GrantType.AUTHORIZATION_CODE)
+                .setClientId(clientId).setClientSecret(clientSecret).setCode(code).setRedirectURI(redirectUri)
+                .buildQueryMessage();
 
             accessTokenRequest.addHeader("Accept", "application/json");
             accessTokenRequest.addHeader("Content-Type", "application/json");
             OAuthAccessTokenResponse oAuthResponse =
                 oAuthClient.accessToken(accessTokenRequest, OAuth.HttpMethod.POST, OAuthJSONAccessTokenResponse.class);
-            String accessToken = oAuthResponse.getAccessToken();
-            System.out.println("获取到的token：" + accessToken);
-
-            accessUser(request, response, accessToken);
-
+            accessToken = oAuthResponse.getAccessToken();
         } catch (OAuthSystemException e) {
             e.printStackTrace();
         } catch (OAuthProblemException e) {
@@ -113,6 +142,7 @@ public class GithubController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        accessUser(request, response, accessToken);
     }
 
     /**
@@ -123,9 +153,10 @@ public class GithubController {
      * @param accessToken
      * @throws Exception
      */
-    private void accessUser(HttpServletRequest request, HttpServletResponse response, String accessToken)
+    private synchronized void accessUser(HttpServletRequest request, HttpServletResponse response, String accessToken)
         throws Exception {
 
+        String username = null;
         OAuthClient oAuthClient = new OAuthClient(new URLConnectionClient());
         try {
             OAuthClientRequest userInfoRequest =
@@ -133,14 +164,81 @@ public class GithubController {
             OAuthResourceResponse resourceResponse =
                 oAuthClient.resource(userInfoRequest, OAuth.HttpMethod.GET, OAuthResourceResponse.class);
             String body = resourceResponse.getBody();
-            System.out.println("body：" + body);
-
+            JSONObject json = new JSONObject(body);
+            username = (String)json.get("login");
+            logger.info("body:" + body);
         } catch (OAuthSystemException e) {
             e.printStackTrace();
         } catch (OAuthProblemException e) {
             e.printStackTrace();
         }
+        logger.info("username:" + username);
+        redirectToAssetService(request, response, username);
 
+    }
+
+    /**
+     * 跳转到资产系统
+     * 
+     * @param request
+     * @param response
+     * @param username
+     * @throws UnsupportedEncodingException
+     * @throws ServletException
+     * @throws IOException
+     */
+    private void redirectToAssetService(HttpServletRequest request, HttpServletResponse response, String username)
+        throws UnsupportedEncodingException, ServletException, IOException {
+        String urlCode = username;
+        if (encryption) {
+            urlCode = URLEncoder.encode(URLEncoder.encode(encrypt(username), "UTF-8"), "UTF-8");
+        }
+        String npUrl = targetUrl + urlCode;
+        logger.info(npUrl);
+        response.sendRedirect(npUrl);
+        // request.getRequestDispatcher(url).forward(request, response);
+    }
+
+    /**
+     * 加密数据
+     * 
+     * @param data
+     * @return
+     */
+    private static String encrypt(String data) { // 对string进行BASE64Encoder转换
+        System.out.println("password:" + password);
+        byte[] bt = encryptByKey(data.getBytes(), password);
+        Base64 base64en = new Base64(true);
+        String strs = new String(base64en.encode(bt));
+        return strs;
+    }
+
+    /**
+     * DES加密
+     * 
+     * @param datasource
+     * @param key
+     * @return
+     */
+    private static byte[] encryptByKey(byte[] datasource, String key) {
+        try {
+            SecureRandom random = new SecureRandom();
+
+            DESKeySpec desKey = new DESKeySpec(key.getBytes());
+            // 创建一个密匙工厂，然后用它把DESKeySpec转换成
+            SecretKeyFactory keyFactory = SecretKeyFactory.getInstance("DES");
+            SecretKey securekey = keyFactory.generateSecret(desKey);
+            // Cipher对象实际完成加密操作
+            Cipher cipher = Cipher.getInstance("DES");
+            // 用密匙初始化Cipher对象
+            cipher.init(Cipher.ENCRYPT_MODE, securekey, random);
+            // 现在，获取数据并加密
+            // 正式执行加密操作
+            return cipher.doFinal(datasource);
+        } catch (Throwable e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }

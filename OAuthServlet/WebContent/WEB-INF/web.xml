@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
+  <display-name>OAuthServlet</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  
+  <servlet>
+  	<servlet-name>RequestCodeServlet</servlet-name>
+  	<servlet-class>oauth.RequestCodeServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>RequestCodeServlet</servlet-name>
+  	<url-pattern>/oauth/RequestCodeServlet</url-pattern>
+  </servlet-mapping>
+  
+    <servlet>
+  	<servlet-name>AccessTokenServlet</servlet-name>
+  	<servlet-class>oauth.AccessTokenServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>AccessTokenServlet</servlet-name>
+  	<url-pattern>/oauth/AccessTokenServlet</url-pattern>
+  </servlet-mapping>
+  
+</web-app>
