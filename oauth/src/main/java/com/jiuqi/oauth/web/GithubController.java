@@ -16,11 +16,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.oltu.oauth2.client.OAuthClient;
 import org.apache.oltu.oauth2.client.URLConnectionClient;
-import org.apache.oltu.oauth2.client.request.OAuthBearerClientRequest;
 import org.apache.oltu.oauth2.client.request.OAuthClientRequest;
 import org.apache.oltu.oauth2.client.response.OAuthAccessTokenResponse;
 import org.apache.oltu.oauth2.client.response.OAuthJSONAccessTokenResponse;
-import org.apache.oltu.oauth2.client.response.OAuthResourceResponse;
 import org.apache.oltu.oauth2.common.OAuth;
 import org.apache.oltu.oauth2.common.exception.OAuthProblemException;
 import org.apache.oltu.oauth2.common.exception.OAuthSystemException;
@@ -29,11 +27,18 @@ import org.codehaus.jettison.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 /**
  * @author ZLM
@@ -157,21 +162,27 @@ public class GithubController {
         throws Exception {
 
         String username = null;
-        OAuthClient oAuthClient = new OAuthClient(new URLConnectionClient());
-        try {
-            OAuthClientRequest userInfoRequest =
-                new OAuthBearerClientRequest(userInfoUrl).setAccessToken(accessToken).buildQueryMessage();
-            OAuthResourceResponse resourceResponse =
-                oAuthClient.resource(userInfoRequest, OAuth.HttpMethod.GET, OAuthResourceResponse.class);
-            String body = resourceResponse.getBody();
-            JSONObject json = new JSONObject(body);
-            username = (String)json.get("login");
-            logger.info("body:" + body);
-        } catch (OAuthSystemException e) {
-            e.printStackTrace();
-        } catch (OAuthProblemException e) {
-            e.printStackTrace();
-        }
+        RestTemplate restTemplate = new RestTemplate();
+        
+        //构建请求体
+        LinkedMultiValueMap<String, String> body=new LinkedMultiValueMap<String, String>();
+        
+        body.add("client_id", clientId);
+        body.add("client_secret", clientSecret);
+        body.add("token", accessToken);
+        
+        //构建请求头
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        HttpEntity<LinkedMultiValueMap<String, String>> httpEntity = new HttpEntity<LinkedMultiValueMap<String, String>>(body,headers);
+        //发送HTTP请求
+        ResponseEntity<String> strbody = restTemplate.exchange(userInfoUrl,HttpMethod.POST,httpEntity,String.class);
+        String responsebody = strbody.getBody();
+        
+        JSONObject json = new JSONObject(responsebody);
+        
+        username = json.getString("user_name");
+       
         logger.info("username:" + username);
         redirectToAssetService(request, response, username);
 
