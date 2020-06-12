@@ -28,7 +28,7 @@ public class Controller {
 	}
 
 	private String random() {
-
+	    
 		return String.valueOf(Math.round(Math.random() * 10) % 2);
 
 	}
