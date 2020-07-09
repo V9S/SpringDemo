@@ -101,8 +101,8 @@ public class GithubController {
     @GetMapping("/oauth/getGithubCode")
     private void getCode(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-        getCodeUrl = codeUrl + "?client_id=" + clientId + "&redirect_uri=" + redirectUri + "&response_type=" + responseType
-            + "&state=" + state;
+        getCodeUrl = codeUrl + "?client_id=" + clientId + "&redirect_uri=" + redirectUri + "&response_type="
+            + responseType + "&state=" + state;
         logger.info(getCodeUrl);
         OAuthClientRequest oaRequest = null;
         try {
@@ -163,26 +163,27 @@ public class GithubController {
 
         String username = null;
         RestTemplate restTemplate = new RestTemplate();
-        
-        //构建请求体
-        LinkedMultiValueMap<String, String> body=new LinkedMultiValueMap<String, String>();
-        
+
+        // 构建请求体
+        LinkedMultiValueMap<String, String> body = new LinkedMultiValueMap<String, String>();
+
         body.add("client_id", clientId);
         body.add("client_secret", clientSecret);
         body.add("token", accessToken);
-        
-        //构建请求头
+
+        // 构建请求头
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-        HttpEntity<LinkedMultiValueMap<String, String>> httpEntity = new HttpEntity<LinkedMultiValueMap<String, String>>(body,headers);
-        //发送HTTP请求
-        ResponseEntity<String> strbody = restTemplate.exchange(userInfoUrl,HttpMethod.POST,httpEntity,String.class);
+        HttpEntity<LinkedMultiValueMap<String, String>> httpEntity =
+            new HttpEntity<LinkedMultiValueMap<String, String>>(body, headers);
+        // 发送HTTP请求
+        ResponseEntity<String> strbody = restTemplate.exchange(userInfoUrl, HttpMethod.POST, httpEntity, String.class);
         String responsebody = strbody.getBody();
-        
+
         JSONObject json = new JSONObject(responsebody);
-        
+
         username = json.getString("user_name");
-       
+
         logger.info("username:" + username);
         redirectToAssetService(request, response, username);
 
