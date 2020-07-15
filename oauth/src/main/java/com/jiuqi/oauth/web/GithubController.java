@@ -93,6 +93,8 @@ public class GithubController {
 
     private final Logger logger = LoggerFactory.getLogger(GithubController.class);
 
+    private String redirectUrl = "home";
+
     /**
      * 获取Authorization code
      * 
@@ -103,7 +105,9 @@ public class GithubController {
 
         getCodeUrl = codeUrl + "?client_id=" + clientId + "&redirect_uri=" + redirectUri + "&response_type="
             + responseType + "&state=" + state;
-        logger.info(getCodeUrl);
+        logger.info("getCodeUrl:" + getCodeUrl);
+        redirectUrl = request.getParameter("targetUrl");
+        logger.info("targetUrl:" + targetUrl);
         OAuthClientRequest oaRequest = null;
         try {
             oaRequest = OAuthClientRequest.authorizationLocation(getCodeUrl).buildQueryMessage();
@@ -205,7 +209,7 @@ public class GithubController {
         if (encryption) {
             urlCode = URLEncoder.encode(URLEncoder.encode(encrypt(username), "UTF-8"), "UTF-8");
         }
-        String npUrl = targetUrl + urlCode;
+        String npUrl = targetUrl + urlCode + "&redirectUrl=" + redirectUrl;
         logger.info(npUrl);
         response.sendRedirect(npUrl);
         // request.getRequestDispatcher(url).forward(request, response);
