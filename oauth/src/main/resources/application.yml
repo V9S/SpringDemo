@@ -4,18 +4,18 @@ oauth:
   base:
     redirectUri: http://127.0.0.1:9999/gams2/login/oauth/getGithubAccessToken #回调地址
     password: com.jiuqi   #DES加密密码
-    clientId: 73a227a4b2c76761d91b  #系统id
-    clientSecret: 5f2c67d2c36f491c3aaf5d6fa67fbce5e7c3a67d  #系统密码
+    clientId: zc-legal-web  #系统id
+    clientSecret: ZCweb45DG5ASd34  #系统密码
   encryption: true  #跳转地址携带参数是否加密传输，默认加密
   code:
-    CodeUrl: https://github.com/login/oauth/authorize #获取Authorization Code地址
+    CodeUrl: http://sso.cqcet.edu.cn/test/oauth/authorize #获取Authorization Code地址
     responseType: code  #授权类型，此值固定为code
   token:
-    TokenUrl: https://github.com/login/oauth/access_token  #获取Token地址
+    TokenUrl: http://10.150.11.37:50001/test/oauth/token  #获取Token地址
     grantType: authorization_code  #OAuth2令牌请求的方式（授权码认证需要填写authorization_code）
   userInfo:
-    UserInfoUrl: https://api.github.com/user #获取登录用户URL
-    DetailInfo: http://10.150.11.36:8902/out/v1/user #获取用户详细信息
+    UserInfoUrl: http://10.150.11.37:50001/test/oauth/check_token #获取登录用户URL
+    DetailInfo: http://10.150.11.37:8902/out/v1/user/ #获取用户详细信息
   target:
     targetUrl: http://127.0.0.1:8081/server/slogin?username=  #np第三方登录接口
 logging:

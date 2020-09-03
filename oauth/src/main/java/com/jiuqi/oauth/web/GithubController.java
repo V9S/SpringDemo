@@ -37,6 +37,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
@@ -124,6 +125,7 @@ public class GithubController {
      * @throws Exception
      */
     @RequestMapping("/oauth/getGithubAccessToken")
+    @ResponseBody
     private void getAccessToken(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         String code = request.getParameter("code");
@@ -167,13 +169,15 @@ public class GithubController {
 
         String username = null;
         RestTemplate restTemplate = new RestTemplate();
-
+        logger.info("token:" + accessToken);
+        
         // 构建请求体
         LinkedMultiValueMap<String, String> body = new LinkedMultiValueMap<String, String>();
 
-        body.add("client_id", clientId);
-        body.add("client_secret", clientSecret);
-        body.add("token", accessToken);
+//        body.add("client_id", clientId);
+//        body.add("client_secret", clientSecret);
+//        body.add("token", accessToken);
+        body.add("access_token", accessToken);
 
         // 构建请求头
         HttpHeaders headers = new HttpHeaders();
