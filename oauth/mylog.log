@@ -1,0 +1,112 @@
+2020-09-03 09:28:28.366  INFO 23024 --- [main] com.jiuqi.oauth.Application              : Starting Application on DESKTOP-COMPANY with PID 23024 (E:\personal_git\SpringDemo\oauth\target\classes started by ZLM in E:\personal_git\SpringDemo\oauth)
+2020-09-03 09:28:28.370  INFO 23024 --- [main] com.jiuqi.oauth.Application              : No active profile set, falling back to default profiles: default
+2020-09-03 09:28:28.421  INFO 23024 --- [main] ConfigServletWebServerApplicationContext : Refreshing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@44a59da3: startup date [Thu Sep 03 09:28:28 CST 2020]; root of context hierarchy
+2020-09-03 09:28:29.837  INFO 23024 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9999 (http)
+2020-09-03 09:28:29.890  INFO 23024 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-09-03 09:28:29.890  INFO 23024 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.31
+2020-09-03 09:28:29.902  INFO 23024 --- [localhost-startStop-1] o.a.catalina.core.AprLifecycleListener   : Loaded APR based Apache Tomcat Native library [1.2.16] using APR version [1.6.3].
+2020-09-03 09:28:29.902  INFO 23024 --- [localhost-startStop-1] o.a.catalina.core.AprLifecycleListener   : APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true].
+2020-09-03 09:28:29.902  INFO 23024 --- [localhost-startStop-1] o.a.catalina.core.AprLifecycleListener   : APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+2020-09-03 09:28:31.063  INFO 23024 --- [localhost-startStop-1] o.a.catalina.core.AprLifecycleListener   : OpenSSL successfully initialized [OpenSSL 1.0.2m  2 Nov 2017]
+2020-09-03 09:28:31.174  INFO 23024 --- [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-09-03 09:28:31.175  INFO 23024 --- [localhost-startStop-1] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 2754 ms
+2020-09-03 09:28:31.311  INFO 23024 --- [localhost-startStop-1] o.s.b.w.servlet.ServletRegistrationBean  : Servlet dispatcherServlet mapped to [/]
+2020-09-03 09:28:31.315  INFO 23024 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'characterEncodingFilter' to: [/*]
+2020-09-03 09:28:31.316  INFO 23024 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2020-09-03 09:28:31.316  INFO 23024 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2020-09-03 09:28:31.316  INFO 23024 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'requestContextFilter' to: [/*]
+2020-09-03 09:28:31.546  INFO 23024 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2020-09-03 09:28:31.822  INFO 23024 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : Looking for @ControllerAdvice: org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@44a59da3: startup date [Thu Sep 03 09:28:28 CST 2020]; root of context hierarchy
+2020-09-03 09:28:31.951  INFO 23024 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/gams2/login/a]}" onto private void com.jiuqi.oauth.web.GithubController.redirectToAssetService(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse,java.lang.String) throws java.io.UnsupportedEncodingException,javax.servlet.ServletException,java.io.IOException
+2020-09-03 09:28:31.953  INFO 23024 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/gams2/login/oauth/getGithubAccessToken]}" onto private void com.jiuqi.oauth.web.GithubController.getAccessToken(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse) throws java.lang.Exception
+2020-09-03 09:28:31.954  INFO 23024 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/gams2/login/oauth/getGithubCode],methods=[GET]}" onto private void com.jiuqi.oauth.web.GithubController.getCode(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse) throws java.io.IOException
+2020-09-03 09:28:31.956  INFO 23024 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2020-09-03 09:28:31.956  INFO 23024 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2020-09-03 09:28:31.980  INFO 23024 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2020-09-03 09:28:31.981  INFO 23024 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2020-09-03 09:28:32.120  INFO 23024 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Registering beans for JMX exposure on startup
+2020-09-03 09:28:32.171  INFO 23024 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9999 (http) with context path ''
+2020-09-03 09:28:32.176  INFO 23024 --- [main] com.jiuqi.oauth.Application              : Started Application in 4.365 seconds (JVM running for 5.424)
+2020-09-03 09:44:22.609  INFO 23024 --- [http-nio-9999-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring FrameworkServlet 'dispatcherServlet'
+2020-09-03 09:44:22.610  INFO 23024 --- [http-nio-9999-exec-1] o.s.web.servlet.DispatcherServlet        : FrameworkServlet 'dispatcherServlet': initialization started
+2020-09-03 09:44:22.633  INFO 23024 --- [http-nio-9999-exec-1] o.s.web.servlet.DispatcherServlet        : FrameworkServlet 'dispatcherServlet': initialization completed in 23 ms
+2020-09-03 09:44:22.671  INFO 23024 --- [http-nio-9999-exec-1] com.jiuqi.oauth.web.GithubController     : getCodeUrl:http://sso.cqcet.edu.cn/test/oauth/authorize?client_id=zc-legal-web&redirect_uri=http://127.0.0.1:9999/gams2/login/oauth/getGithubAccessToken&response_type=code&state=0.044586508335592856
+2020-09-03 09:44:22.672  INFO 23024 --- [http-nio-9999-exec-1] com.jiuqi.oauth.web.GithubController     : targetUrl:http://127.0.0.1:8081/server/slogin?username=
+2020-09-03 09:45:35.842 ERROR 23024 --- [http-nio-9999-exec-6] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is java.lang.NullPointerException] with root cause
+
+java.lang.NullPointerException: null
+	at com.jiuqi.oauth.web.GithubController.encrypt(GithubController.java:231) ~[classes/:na]
+	at com.jiuqi.oauth.web.GithubController.redirectToAssetService(GithubController.java:215) ~[classes/:na]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_231]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0_231]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0_231]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[na:1.8.0_231]
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:209) ~[spring-web-5.0.6.RELEASE.jar:5.0.6.RELEASE]
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:136) ~[spring-web-5.0.6.RELEASE.jar:5.0.6.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:102) ~[spring-webmvc-5.0.6.RELEASE.jar:5.0.6.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:877) ~[spring-webmvc-5.0.6.RELEASE.jar:5.0.6.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:783) ~[spring-webmvc-5.0.6.RELEASE.jar:5.0.6.RELEASE]
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[spring-webmvc-5.0.6.RELEASE.jar:5.0.6.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:991) ~[spring-webmvc-5.0.6.RELEASE.jar:5.0.6.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:925) ~[spring-webmvc-5.0.6.RELEASE.jar:5.0.6.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:974) ~[spring-webmvc-5.0.6.RELEASE.jar:5.0.6.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:866) ~[spring-webmvc-5.0.6.RELEASE.jar:5.0.6.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:635) ~[tomcat-embed-core-8.5.31.jar:8.5.31]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:851) ~[spring-webmvc-5.0.6.RELEASE.jar:5.0.6.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:742) ~[tomcat-embed-core-8.5.31.jar:8.5.31]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231) ~[tomcat-embed-core-8.5.31.jar:8.5.31]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-8.5.31.jar:8.5.31]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:52) ~[tomcat-embed-websocket-8.5.31.jar:8.5.31]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-8.5.31.jar:8.5.31]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-8.5.31.jar:8.5.31]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:99) ~[spring-web-5.0.6.RELEASE.jar:5.0.6.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-5.0.6.RELEASE.jar:5.0.6.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-8.5.31.jar:8.5.31]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-8.5.31.jar:8.5.31]
+	at org.springframework.web.filter.HttpPutFormContentFilter.doFilterInternal(HttpPutFormContentFilter.java:109) ~[spring-web-5.0.6.RELEASE.jar:5.0.6.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-5.0.6.RELEASE.jar:5.0.6.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-8.5.31.jar:8.5.31]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-8.5.31.jar:8.5.31]
+	at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:81) ~[spring-web-5.0.6.RELEASE.jar:5.0.6.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-5.0.6.RELEASE.jar:5.0.6.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-8.5.31.jar:8.5.31]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-8.5.31.jar:8.5.31]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:200) ~[spring-web-5.0.6.RELEASE.jar:5.0.6.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-5.0.6.RELEASE.jar:5.0.6.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-8.5.31.jar:8.5.31]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-8.5.31.jar:8.5.31]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:198) ~[tomcat-embed-core-8.5.31.jar:8.5.31]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96) [tomcat-embed-core-8.5.31.jar:8.5.31]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:496) [tomcat-embed-core-8.5.31.jar:8.5.31]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:140) [tomcat-embed-core-8.5.31.jar:8.5.31]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:81) [tomcat-embed-core-8.5.31.jar:8.5.31]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:87) [tomcat-embed-core-8.5.31.jar:8.5.31]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:342) [tomcat-embed-core-8.5.31.jar:8.5.31]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:803) [tomcat-embed-core-8.5.31.jar:8.5.31]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66) [tomcat-embed-core-8.5.31.jar:8.5.31]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:790) [tomcat-embed-core-8.5.31.jar:8.5.31]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1468) [tomcat-embed-core-8.5.31.jar:8.5.31]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) [tomcat-embed-core-8.5.31.jar:8.5.31]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) [na:1.8.0_231]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) [na:1.8.0_231]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) [tomcat-embed-core-8.5.31.jar:8.5.31]
+	at java.lang.Thread.run(Thread.java:748) [na:1.8.0_231]
+
+2020-09-03 09:46:00.893  INFO 23024 --- [http-nio-9999-exec-7] com.jiuqi.oauth.web.GithubController     : http://127.0.0.1:8081/server/slogin?username=vciC79H-rec9MbbVUpsCTA%250D%250A&redirectUrl=null
+2020-09-03 09:51:18.020  INFO 23024 --- [http-nio-9999-exec-8] com.jiuqi.oauth.web.GithubController     : http://127.0.0.1:8081/server/slogin?username=vciC79H-rec9MbbVUpsCTA%250D%250A&redirectUrl=null
+2020-09-03 09:56:53.219  INFO 23024 --- [http-nio-9999-exec-2] com.jiuqi.oauth.web.GithubController     : getCodeUrl:http://sso.cqcet.edu.cn/test/oauth/authorize?client_id=zc-legal-web&redirect_uri=http://127.0.0.1:9999/gams2/login/oauth/getGithubAccessToken&response_type=code&state=0.044586508335592856
+2020-09-03 09:56:53.219  INFO 23024 --- [http-nio-9999-exec-2] com.jiuqi.oauth.web.GithubController     : targetUrl:http://127.0.0.1:8081/server/slogin?username=
+2020-09-03 09:56:59.096  INFO 23024 --- [http-nio-9999-exec-6] com.jiuqi.oauth.web.GithubController     : getCodeUrl:http://sso.cqcet.edu.cn/test/oauth/authorize?client_id=zc-legal-web&redirect_uri=http://127.0.0.1:9999/gams2/login/oauth/getGithubAccessToken&response_type=code&state=0.044586508335592856
+2020-09-03 09:56:59.096  INFO 23024 --- [http-nio-9999-exec-6] com.jiuqi.oauth.web.GithubController     : targetUrl:http://127.0.0.1:8081/server/slogin?username=
+2020-09-03 09:57:07.345  INFO 23024 --- [http-nio-9999-exec-7] com.jiuqi.oauth.web.GithubController     : http://127.0.0.1:8081/server/slogin?username=vciC79H-rec9MbbVUpsCTA%250D%250A&redirectUrl=null
+2020-09-03 09:58:11.942  INFO 23024 --- [http-nio-9999-exec-9] com.jiuqi.oauth.web.GithubController     : http://127.0.0.1:8081/server/slogin?username=vciC79H-rec9MbbVUpsCTA%250D%250A&redirectUrl=null
+2020-09-03 10:00:13.741  INFO 23024 --- [http-nio-9999-exec-1] com.jiuqi.oauth.web.GithubController     : http://127.0.0.1:8081/server/slogin?username=vciC79H-rec9MbbVUpsCTA%250D%250A&redirectUrl=null
+2020-09-03 10:01:13.517  INFO 23024 --- [http-nio-9999-exec-7] com.jiuqi.oauth.web.GithubController     : http://127.0.0.1:8081/server/slogin?username=vciC79H-rec9MbbVUpsCTA%250D%250A&redirectUrl=null
+2020-09-03 10:07:25.860  INFO 23024 --- [http-nio-9999-exec-9] com.jiuqi.oauth.web.GithubController     : http://127.0.0.1:8081/server/slogin?username=vciC79H-rec9MbbVUpsCTA%250D%250A&redirectUrl=null
+2020-09-03 10:15:19.955  INFO 23024 --- [http-nio-9999-exec-3] com.jiuqi.oauth.web.GithubController     : http://127.0.0.1:8081/server/slogin?username=vciC79H-rec9MbbVUpsCTA%250D%250A&redirectUrl=null
+2020-09-03 10:22:34.477  INFO 23024 --- [http-nio-9999-exec-7] com.jiuqi.oauth.web.GithubController     : http://127.0.0.1:8081/server/slogin?username=vciC79H-rec9MbbVUpsCTA%250D%250A&redirectUrl=null
+2020-09-03 10:30:25.382  INFO 23024 --- [http-nio-9999-exec-2] com.jiuqi.oauth.web.GithubController     : http://127.0.0.1:8081/server/slogin?username=vciC79H-rec9MbbVUpsCTA%250D%250A&redirectUrl=null
+2020-09-03 10:38:54.285  INFO 23024 --- [http-nio-9999-exec-5] com.jiuqi.oauth.web.GithubController     : http://127.0.0.1:8081/server/slogin?username=vciC79H-rec9MbbVUpsCTA%250D%250A&redirectUrl=null
+2020-09-03 10:44:03.664  INFO 23024 --- [http-nio-9999-exec-9] com.jiuqi.oauth.web.GithubController     : http://127.0.0.1:8081/server/slogin?username=vciC79H-rec9MbbVUpsCTA%250D%250A&redirectUrl=null
+2020-09-03 11:55:38.318  INFO 23024 --- [http-nio-9999-exec-3] com.jiuqi.oauth.web.GithubController     : getCodeUrl:http://sso.cqcet.edu.cn/test/oauth/authorize?client_id=zc-legal-web&redirect_uri=http://127.0.0.1:9999/gams2/login/oauth/getGithubAccessToken&response_type=code&state=0.044586508335592856
+2020-09-03 11:55:38.320  INFO 23024 --- [http-nio-9999-exec-3] com.jiuqi.oauth.web.GithubController     : targetUrl:http://127.0.0.1:8081/server/slogin?username=

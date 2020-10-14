@@ -207,11 +207,12 @@ public class GithubController {
      * @throws ServletException
      * @throws IOException
      */
+    @RequestMapping("/a")
     private void redirectToAssetService(HttpServletRequest request, HttpServletResponse response, String username)
         throws UnsupportedEncodingException, ServletException, IOException {
-        String urlCode = username;
+        String urlCode = "199907006";
         if (encryption) {
-            urlCode = URLEncoder.encode(URLEncoder.encode(encrypt(username), "UTF-8"), "UTF-8");
+            urlCode = URLEncoder.encode(URLEncoder.encode(encrypt("199907006"), "UTF-8"), "UTF-8");
         }
         String npUrl = targetUrl + urlCode + "&redirectUrl=" + redirectUrl;
         logger.info(npUrl);
