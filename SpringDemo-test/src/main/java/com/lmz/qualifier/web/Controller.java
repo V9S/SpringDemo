@@ -2,10 +2,12 @@ package com.lmz.qualifier.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.ApplicationContext;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.lmz.qualifier.ScrewApplicationTests;
 import com.lmz.qualifier.service.InterfacePrint;
 
 /**
@@ -15,7 +17,8 @@ import com.lmz.qualifier.service.InterfacePrint;
 @RestController
 public class Controller {
     private int count = 0;
-
+    @Autowired
+    private ApplicationContext applicationContext;
     @Autowired
     @Qualifier(value = "bean1")
     private InterfacePrint i;
@@ -27,6 +30,9 @@ public class Controller {
 //        System.out.println(random());
 //        Thread.sleep(300);
 //        return "1";
+        ScrewApplicationTests screwApplicationTests = new ScrewApplicationTests();
+        System.out.println(applicationContext);
+        screwApplicationTests.contextLoads();
          return random();
     }
 
